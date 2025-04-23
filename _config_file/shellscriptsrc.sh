@@ -2109,13 +2109,22 @@ env_delete_tmp_mas_script_fifo() {
 env_create_tmp_batch_script_fifo() {
     env_delete_tmp_batch_script_fifo
     mkfifo -m 600 "/tmp/tmp_batch_script_fifo"
+    chown $(id -u "$USER"):wheel "/tmp/tmp_batch_script_fifo"
     builtin printf "$SUDOPASSWORD\n" > "/tmp/tmp_batch_script_fifo" &
     #echo "$SUDOPASSWORD" > "/tmp/tmp_sudo_cask_script_fifo" &
+    
+#    tmp_sudo_cask_script_fifo="$(/usr/bin/mktemp)"
+#    mkfifo -m 600 tmp_sudo_cask_script_fifo
+#    chown $(id -u "$USER"):wheel tmp_sudo_cask_script_fifo
+#    builtin printf "$SUDOPASSWORD\n" > tmp_sudo_cask_script_fifo &
+#    export tmp_sudo_cask_script_fifo
+    
 }
 
 env_create_tmp_batch_script_gpg_fifo() {
     env_delete_tmp_batch_script_gpg_fifo
     mkfifo -m 600 "/tmp/tmp_batch_script_gpg_fifo"
+    chown $(id -u "$USER"):wheel "/tmp/tmp_batch_script_gpg_fifo"
     builtin printf "$GPG_PASSWORD\n" > "/tmp/tmp_batch_script_gpg_fifo" &
     #echo "$GPG_PASSWORD" > "/tmp/tmp_sudo_cask_script_fifo" &
 }
@@ -2123,9 +2132,11 @@ env_create_tmp_batch_script_gpg_fifo() {
 env_create_tmp_mas_script_fifo() {
     env_delete_tmp_mas_script_fifo
     mkfifo -m 600 "/tmp/tmp_sudo_mas_script_fifo"
+    chown $(id -u "$USER"):wheel "/tmp/tmp_sudo_mas_script_fifo"
     builtin printf "$SUDOPASSWORD\n" > "/tmp/tmp_sudo_mas_script_fifo" &
     #echo "$SUDOPASSWORD" > "/tmp/tmp_sudo_mas_script_fifo" &
     mkfifo -m 600 "/tmp/tmp_appstore_mas_script_fifo"
+    chown $(id -u "$USER"):wheel "/tmp/tmp_appstore_mas_script_fifo"
     builtin printf "$MAS_APPSTORE_PASSWORD\n" > "/tmp/tmp_appstore_mas_script_fifo" &
     #echo "$MAS_APPSTORE_PASSWORD" > "/tmp/tmp_appstore_mas_script_fifo" &
 }
@@ -2133,6 +2144,7 @@ env_create_tmp_mas_script_fifo() {
 env_create_tmp_casks_script_fifo() {
     env_delete_tmp_casks_script_fifo
     mkfifo -m 600 "/tmp/tmp_sudo_cask_script_fifo"
+    chown $(id -u "$USER"):wheel "/tmp/tmp_sudo_cask_script_fifo"
     builtin printf "$SUDOPASSWORD\n" > "/tmp/tmp_sudo_cask_script_fifo" &
     #echo "$SUDOPASSWORD" > "/tmp/tmp_sudo_cask_script_fifo" &
 }
